@@ -40,3 +40,56 @@ export interface Alert {
   timestamp: Date;
   acknowledged: boolean;
 }
+
+// New types for enhanced dashboard
+export interface GroundBot {
+  id: string;
+  name: string;
+  latitude: number;
+  longitude: number;
+  batteryLevel: number;
+  status: DroneStatus;
+  sensors: SensorData;
+  assignedTask?: string;
+  lastUpdated: Date;
+}
+
+export interface WeatherData {
+  temperature: number;
+  humidity: number;
+  windSpeed: number;
+  windDirection: string;
+  precipitation: number;
+  forecast: string;
+  lastUpdated: Date;
+}
+
+export interface GISFeature {
+  type: 'roadblock' | 'hazard' | 'safeZone' | 'evacuationRoute';
+  coordinates: [number, number];
+  radius?: number;
+  description: string;
+}
+
+export interface StatusLog {
+  id: string;
+  timestamp: Date;
+  agentId?: string;
+  agentType: 'drone' | 'groundBot' | 'system';
+  message: string;
+  severity: 'info' | 'warning' | 'critical';
+  rawData?: any;
+}
+
+export interface HumanReport {
+  id: string;
+  timestamp: Date;
+  location: {
+    latitude: number;
+    longitude: number;
+  };
+  reporter: string;
+  message: string;
+  type: 'sighting' | 'casualty' | 'hazard' | 'request';
+  status: 'new' | 'acknowledged' | 'inProgress' | 'resolved';
+}
