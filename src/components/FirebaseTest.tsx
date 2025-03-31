@@ -1,20 +1,23 @@
 import { useEffect, useState } from 'react';
 import { getCollection } from '../lib/firebase/firestore';
 
+interface ProjectData {
+  id: string;
+  [key: string]: any;
+}
+
 export function FirebaseTest() {
   const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading');
   const [message, setMessage] = useState<string>('');
-  const [data, setData] = useState<any[]>([]);
+  const [data, setData] = useState<ProjectData[]>([]);
 
   useEffect(() => {
     const testConnection = async () => {
       try {
-        // Try to fetch data from a collection
-        // Replace 'test-collection' with an actual collection name from your database
-        const result = await getCollection('test-collection');
+        const result = await getCollection('hackproject');
         setData(result);
         setStatus('success');
-        setMessage('Successfully connected to Firebase!');
+        setMessage(`Successfully connected to Firebase! Found ${result.length} documents.`);
       } catch (error) {
         console.error('Firebase connection error:', error);
         setStatus('error');
@@ -55,10 +58,17 @@ export function FirebaseTest() {
 
         {status === 'success' && data.length > 0 && (
           <div className="mt-4">
-            <h3 className="font-medium mb-2">Sample Data:</h3>
-            <pre className="bg-gray-50 p-2 rounded text-sm overflow-auto">
-              {JSON.stringify(data[0], null, 2)}
-            </pre>
+            <h3 className="font-medium mb-2">Project Data:</h3>
+            <div className="space-y-4">
+              {data.map((item) => (
+                <div key={item.id} className="bg-gray-50 p-4 rounded">
+                  <h4 className="font-medium mb-2">Document ID: {item.id}</h4>
+                  <pre className="text-sm overflow-auto">
+                    {JSON.stringify(item, null, 2)}
+                  </pre>
+                </div>
+              ))}
+            </div>
           </div>
         )}
       </div>

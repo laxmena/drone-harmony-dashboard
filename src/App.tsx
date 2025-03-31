@@ -17,14 +17,11 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/firebase-test" element={<FirebaseTest />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
-      <div className="container mx-auto p-4">
-        <h1 className="text-2xl font-bold mb-4">Firebase Connection Test</h1>
-        <FirebaseTest />
-      </div>
     </TooltipProvider>
   </QueryClientProvider>
 );
