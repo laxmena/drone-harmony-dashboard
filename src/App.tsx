@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
+import { FirebaseTest } from './components/FirebaseTest'
 
 const queryClient = new QueryClient();
 
@@ -20,6 +21,10 @@ const App = () => (
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
+      <div className="container mx-auto p-4">
+        <h1 className="text-2xl font-bold mb-4">Firebase Connection Test</h1>
+        <FirebaseTest />
+      </div>
     </TooltipProvider>
   </QueryClientProvider>
 );
